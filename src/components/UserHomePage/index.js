@@ -56,7 +56,6 @@ const UserHomePage = ({ carsOption }) => {
                       </div>
                     </div>
                   </div>
-                  ;
                 </>
               );
             })}
