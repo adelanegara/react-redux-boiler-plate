@@ -132,7 +132,7 @@ export const whitelist = [
   "listCar",
   "booking",
   "isLogin",
-  "carOption",
+  "carsOption",
 ];
 
 export const fileReducer = (state = initialState, action) => {

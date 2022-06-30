@@ -54,8 +54,8 @@ const EditCar = ({ carsOption, editCar }) => {
       status,
     };
     editCar(payload);
-    toast.success(`update date for location ${data.location} successfully`);
-    navigate("/");
+    toast.success(`update date for ${data.name} successfully`);
+    navigate("/owner");
   };
 
   return (
@@ -120,4 +120,10 @@ const mapStateToProps = (state) => ({
   carsOption: state.carsOption,
 });
 
-export default connect(mapStateToProps)(EditCar);
+const mapDispatchToProps = (dispatch) => ({
+  editCar: (payload) => {
+    dispatch({ type: "EDIT_CARS", payload });
+  },
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(EditCar);
