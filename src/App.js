@@ -6,6 +6,7 @@ import LoginPage from "./components/LoginPage/loadable";
 import Navbar from "./components/Navbar";
 import OwnerLandingPage from "./components/OwnerLandingPage/loadable";
 import Registration from "./components/Registration/loadable";
+import RequestBooking from "./components/RequestBooking/loadable";
 import UserHomePage from "./components/UserHomePage/loadable";
 
 function App() {
@@ -21,6 +22,7 @@ function App() {
         <Route path="/owner" element={<OwnerLandingPage />} />
         <Route path="/home" element={<UserHomePage />} />
         <Route path="/edit/:id" element={<EditCar />} />
+        <Route path="/request" element={<RequestBooking />} />
       </Routes>
     </Router>
   );

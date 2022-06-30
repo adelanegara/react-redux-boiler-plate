@@ -152,6 +152,20 @@ export const fileReducer = (state = initialState, action) => {
         ...state,
         userAccount: action.payload,
       };
+    case "EDIT_CARS":
+      const beforeCar = state.carsOption.filter((item) => {
+        return item.id !== action.payload.id;
+      });
+      const newCar = [action.payload, ...beforeCar];
+      return {
+        ...state,
+        slot: newCar,
+      };
+    case "ADD_REQUEST":
+      return {
+        ...state,
+        request: [action.payload, ...state.request],
+      };
     default:
       return state;
   }
