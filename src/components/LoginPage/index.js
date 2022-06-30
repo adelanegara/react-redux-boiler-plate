@@ -20,7 +20,7 @@ const validationSchema = yup.object({
     .required("Password is required"),
 });
 
-const Login = ({ onLogin, setUserAccount }) => {
+const Login = ({ onLogin, setUserAccount, isLogin }) => {
   const checkAccount = (account, values) => {
     const findAccount = account.find((item) => {
       return item.email === values.email;
@@ -28,10 +28,10 @@ const Login = ({ onLogin, setUserAccount }) => {
     if (findAccount) {
       const checkPassword = bcrypt.compareSync(
         values.password,
-        account.password
+        findAccount.password
       );
       if (checkPassword) {
-        setUserAccount(checkAccount);
+        setUserAccount(findAccount);
         onLogin();
         window.location.replace("/home");
         toast.success("Login Succesfully");
@@ -95,6 +95,10 @@ const Login = ({ onLogin, setUserAccount }) => {
   );
 };
 
+const mapStateToProps = (state) => ({
+  isLogin: state.isLogin,
+});
+
 const mapDispatchToProps = (dispatch) => ({
   onLogin: () => {
     dispatch({ type: "LOGIN" });
@@ -104,4 +108,4 @@ const mapDispatchToProps = (dispatch) => ({
   },
 });
 
-export default connect(mapDispatchToProps)(Login);
+export default connect(mapStateToProps, mapDispatchToProps)(Login);
