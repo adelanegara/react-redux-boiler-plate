@@ -128,7 +128,7 @@ const initialState = {
 };
 
 export const whitelist = [
-  "userAccout",
+  "userAccount",
   "listCar",
   "booking",
   "isLogin",

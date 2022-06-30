@@ -33,7 +33,12 @@ const Login = ({ onLogin, setUserAccount, isLogin }) => {
       if (checkPassword) {
         setUserAccount(findAccount);
         onLogin();
-        window.location.replace("/home");
+        if (findAccount.role === "owner") {
+          window.location.replace("/owner");
+        } else {
+          window.location.replace("/home");
+        }
+
         toast.success("Login Succesfully");
       } else {
         toast.error("invalid password");

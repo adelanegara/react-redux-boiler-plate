@@ -6,7 +6,9 @@ import TextField from "@material-ui/core/TextField";
 import bcrypt from "bcryptjs";
 import { toast } from "react-toastify";
 import axios from "axios";
+import { config } from "../../server/config";
 
+//validation for email and password
 const validationSchema = yup.object({
   email: yup
     .string("Enter your email")
@@ -18,6 +20,7 @@ const validationSchema = yup.object({
     .required("Password is required"),
 });
 
+//get input email and password
 const Registration = () => {
   const formik = useFormik({
     initialValues: {
@@ -29,11 +32,11 @@ const Registration = () => {
       const data = {
         ...values,
         role: "user",
-        password: bcrypt.hashSync(values.password, 10),
+        password: bcrypt.hashSync(values.password, 10), //hash password
       };
       console.log(data);
       axios
-        .post("http://localhost:8888/account", data)
+        .post(config.url_account, data) //write to json server
         .then(() => {
           window.location.replace("/login");
           toast.success("register succesfully");

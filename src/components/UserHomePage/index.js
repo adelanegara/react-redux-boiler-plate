@@ -32,7 +32,7 @@ const UserHomePage = ({ carsOption, userAccount }) => {
       <div>
         <h2 className="text-lg-center pt-2">
           {/* get username and role from redux and display it */}
-          Hi {userAccount.username}, your role is {userAccount.role}
+          Hi {userAccount?.name}, your role is {userAccount?.role}
         </h2>
       </div>
       <div className="row m-0 ">
@@ -170,12 +170,5 @@ const mapStateToProps = (state) => ({
   userAccount: state.userAccount,
 });
 
-//redux action
-const mapDispatchToProps = (dispatch) => ({
-  userAccount: () => {
-    dispatch({ type: "SET_USER_ACCOUNT" });
-  },
-});
-
 //combine the 2 state (action & selector from redux)
-export default connect(mapStateToProps, mapDispatchToProps)(UserHomePage);
+export default connect(mapStateToProps)(UserHomePage);
