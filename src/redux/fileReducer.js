@@ -159,13 +159,14 @@ export const fileReducer = (state = initialState, action) => {
       const newCar = [action.payload, ...beforeCar];
       return {
         ...state,
-        slot: newCar,
+        carsOption: newCar,
       };
     case "ADD_REQUEST":
       return {
         ...state,
         request: [action.payload, ...state.request],
       };
+
     default:
       return state;
   }

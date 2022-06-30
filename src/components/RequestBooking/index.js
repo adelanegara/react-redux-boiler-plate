@@ -86,13 +86,6 @@ const RequestBooking = ({ userData, slot, request, setRequest, editSlot }) => {
       <div className="row  d-flex flex-column">
         <div className="col-md-10 mx-auto my-4">
           <h2 className="text-lg-center pt-2">Request Slot:</h2>
-          <div className="container py-5">
-            <div className="btn" data-toggle="buttons">
-              <Link to={`/`} className="btn btn-sm btn-secondary active mr-1">
-                Home
-              </Link>
-            </div>
-          </div>
 
           <table className="table">
             <thead>
@@ -100,9 +93,8 @@ const RequestBooking = ({ userData, slot, request, setRequest, editSlot }) => {
                 <th scope="col">#</th>
                 <th scope="col">Start Booking</th>
                 <th scope="col">End Booking</th>
+                <th scope="col">Car</th>
                 <th scope="col">Status</th>
-                <th scope="col">Location</th>
-                <th scope="col">Username</th>
                 {/* get data from user data role. Shows action if it's role is Owner */}
                 {userData?.role === "owner" && <th scope="col">Action</th>}
               </tr>
@@ -115,8 +107,7 @@ const RequestBooking = ({ userData, slot, request, setRequest, editSlot }) => {
                   <td>{item.startBooking}</td>
                   <td>{item.endBooking}</td>
                   <td>{item.status}</td>
-                  <td>{item.location}</td>
-                  <td>{item.username}</td>
+                  <td>{item.name}</td>
                   {userData?.role === "owner" && (
                     <td className="d-flex flex-row">
                       <div>
