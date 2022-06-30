@@ -1,11 +1,13 @@
 import React from "react";
 import { useFormik } from "formik";
+import { Link } from "react-router-dom";
 import * as yup from "yup";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 import bcrypt from "bcryptjs";
 import { toast } from "react-toastify";
 import axios from "axios";
+import { connect } from "react-redux";
 
 const validationSchema = yup.object({
   email: yup
@@ -18,7 +20,7 @@ const validationSchema = yup.object({
     .required("Password is required"),
 });
 
-const Login = () => {
+const Login = ({ onLogin, setUserAccount }) => {
   const checkAccount = (account, values) => {
     const findAccount = account.find((item) => {
       return item.email === values.email;
@@ -29,9 +31,9 @@ const Login = () => {
         account.password
       );
       if (checkPassword) {
-        console.log(findAccount);
-        //setUserData(checkAccount);
-        // onLogin();
+        setUserAccount(checkAccount);
+        onLogin();
+        window.location.replace("/home");
         toast.success("Login Succesfully");
       } else {
         toast.error("invalid password");
@@ -79,6 +81,11 @@ const Login = () => {
             error={formik.touched.password && Boolean(formik.errors.password)}
             helperText={formik.touched.password && formik.errors.password}
           />
+          <div className="">
+            <Link to="/register" className="p-3">
+              Register
+            </Link>
+          </div>
           <Button color="primary" variant="contained" fullWidth type="submit">
             Submit
           </Button>
@@ -88,4 +95,13 @@ const Login = () => {
   );
 };
 
-export default Login;
+const mapDispatchToProps = (dispatch) => ({
+  onLogin: () => {
+    dispatch({ type: "LOGIN" });
+  },
+  setUserAccount: (payload) => {
+    dispatch({ type: "SET_USER_ACCOUNT", payload });
+  },
+});
+
+export default connect(mapDispatchToProps)(Login);

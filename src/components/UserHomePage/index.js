@@ -3,14 +3,14 @@ import { connect } from "react-redux";
 import orderBy from "lodash/orderBy";
 
 //pass the parameter carsOption
-const UserHomePage = ({ carsOption }) => {
+const UserHomePage = ({ carsOption, userAccount }) => {
   const [filteredData, setFilteredData] = useState(carsOption);
 
   //handling word for search bar
   const arraySearch = (array, keyword) => {
     const searchTerm = keyword.toLowerCase();
     return array.filter((value) => {
-      return value.title.toLowerCase().match(new RegExp(searchTerm, "g"));
+      return value.name.toLowerCase().match(new RegExp(searchTerm, "g"));
     });
   };
 
@@ -29,6 +29,12 @@ const UserHomePage = ({ carsOption }) => {
 
   return (
     <div>
+      <div>
+        <h2 className="text-lg-center pt-2">
+          {/* get username and role from redux and display it */}
+          Hi {userAccount.username}, your role is {userAccount.role}
+        </h2>
+      </div>
       <div className="row m-0 ">
         <div className="col-3 ">
           <div className="card border-0 m-5">
@@ -161,6 +167,15 @@ const UserHomePage = ({ carsOption }) => {
 
 const mapStateToProps = (state) => ({
   carsOption: state.carsOption,
+  userAccount: state.userAccount,
 });
 
-export default connect(mapStateToProps)(UserHomePage);
+//redux action
+const mapDispatchToProps = (dispatch) => ({
+  userAccount: () => {
+    dispatch({ type: "SET_USER_ACCOUNT" });
+  },
+});
+
+//combine the 2 state (action & selector from redux)
+export default connect(mapStateToProps, mapDispatchToProps)(UserHomePage);

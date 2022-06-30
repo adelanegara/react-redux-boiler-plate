@@ -147,6 +147,11 @@ export const fileReducer = (state = initialState, action) => {
         ...state,
         isLogin: false,
       };
+    case "SET_USER_ACCOUNT":
+      return {
+        ...state,
+        userAccount: action.payload,
+      };
     default:
       return state;
   }

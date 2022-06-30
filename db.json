@@ -4,8 +4,15 @@
       "email": "adela@gmail.com",
       "password": "$2a$10$xiZ.CLUhqdAuSOigNYKjmO/4kG83Dpz1XHk5.itle5I83.IfCbn4W",
       "name": "adela",
-      "role": "user",
+      "role": "owner",
       "id": 1
+    },
+    {
+      "email": "ban@gmail.com",
+      "password": "$2a$10$Fdc/shXA.R93nqJUrmuiYumycsu2Yxq3WJdPIKFyg6XqCeOruddmK",
+      "name": "Banban",
+      "role": "user",
+      "id": 2
     }
   ]
 }
