@@ -44,7 +44,7 @@ const initialState = {
       id: 4,
       name: "Volkswagen Tosca",
       type: "Mini Van",
-      image: "https://source.unsplash.com/GQgybU-u0GQ",
+      image: "https://source.unsplash.com/iSyUe2vyOAg",
       quantity: 3,
       status: "available",
       startDate: "2022-06-27",
@@ -66,9 +66,9 @@ const initialState = {
     },
     {
       id: 6,
-      name: "Volkswagen Blue",
-      type: "Mini Van",
-      image: "https://source.unsplash.com/84a1h0YZP7s",
+      name: "Mustang Orange",
+      type: "sedan",
+      image: "https://source.unsplash.com/umd7qYV0uvM",
       quantity: 1,
       status: "available",
       startDate: "2022-06-27",
@@ -78,10 +78,10 @@ const initialState = {
     },
     {
       id: 7,
-      name: " Mini Cooper",
-      type: "Hatchback",
-      image: "https://source.unsplash.com/qXZ89RUhWlA",
-      quantity: 5,
+      name: "Porsche Cayman",
+      type: "sport",
+      image: "https://source.unsplash.com/lY2cIeXbywE",
+      quantity: 2,
       status: "available",
       startDate: "2022-06-27",
       endDate: "2022-06-27",
@@ -114,9 +114,9 @@ const initialState = {
     },
     {
       id: 10,
-      name: "VW Red",
-      type: "Hatchback",
-      image: "https://source.unsplash.com/eM5z-GX10p8",
+      name: "Ferrari Red",
+      type: "sport",
+      image: "https://source.unsplash.com/wDDCGk7YjIA",
       quantity: 1,
       status: "available",
       startDate: "2022-06-27",
@@ -135,6 +135,20 @@ export const whitelist = [
   "carOption",
 ];
 
-export const fileReducer = (state = initialState) => {
-  return <div>fileReducer</div>;
+export const fileReducer = (state = initialState, action) => {
+  switch (action.type) {
+    case "LOGIN":
+      return {
+        ...state,
+        isLogin: true,
+      };
+    case "LOGOUT":
+      return {
+        ...state,
+        isLogin: false,
+      };
+
+    default:
+      return state;
+  }
 };

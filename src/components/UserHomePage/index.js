@@ -17,7 +17,7 @@ const UserHomePage = ({ carsOption }) => {
               <ul className="list-group">
                 <li className="list-group-item">Sort Ascending</li>
                 <li className="list-group-item">Sort Descending</li>
-                <li className="list-group-item">Sort Rates</li>
+                <li className="list-group-item">Sort by Type</li>
               </ul>
             </div>
           </div>
@@ -40,9 +40,9 @@ const UserHomePage = ({ carsOption }) => {
                           <div className="category-text">
                             <span>{item.type} </span>
                           </div>
-                          <div className="header">Toyota Vios</div>
+                          <div className="header">{item.name}</div>
                           <div className="category-text pb-2">
-                            <span>20 pieces available </span>
+                            <span>{item.quantity} available </span>
                           </div>
                           <div className="form-group d-flex justify-content-between">
                             <button
