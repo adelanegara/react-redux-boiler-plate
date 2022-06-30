@@ -1,6 +1,14 @@
 import React from "react";
+import { toast } from "react-toastify";
+import { connect } from "react-redux";
 
-const Navbar = () => {
+const Navbar = ({ isLogin, onLogout }) => {
+  //handle logout UI
+  const logout = () => {
+    onLogout();
+    toast.success("logout successfully");
+    window.location.replace("/login");
+  };
   return (
     <div>
       <nav
@@ -24,8 +32,14 @@ const Navbar = () => {
             </li>
           </ul>
         </div>
+        {isLogin && <></>}
+
         <div className="logout">
-          <button data-testid="button-logout" className="btn btn-outline-dark">
+          <button
+            data-testid="button-logout"
+            className="btn btn-outline-dark"
+            onClick={logout}
+          >
             Logout
           </button>
         </div>
@@ -34,4 +48,19 @@ const Navbar = () => {
   );
 };
 
-export default Navbar;
+//redux selector
+const mapStateToProps = (state) => ({
+  isLogin: state.isLogin,
+});
+
+//redux action
+const mapDispatchToProps = (dispatch) => ({
+  onLogout: () => {
+    dispatch({ type: "LOGOUT" });
+  },
+});
+
+export { Navbar as NavbarUnwrapped };
+
+//combine the 2 state (action & selector from redux)
+export default connect(mapStateToProps, mapDispatchToProps)(Navbar);

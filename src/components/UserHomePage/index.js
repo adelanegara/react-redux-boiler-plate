@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
 import orderBy from "lodash/orderBy";
+import { useNavigate } from "react-router-dom";
 
 //pass the parameter carsOption
 const UserHomePage = ({ carsOption, userAccount }) => {
+  const navigate = useNavigate();
   const [filteredData, setFilteredData] = useState(carsOption);
 
   //handling word for search bar
@@ -147,6 +149,7 @@ const UserHomePage = ({ carsOption, userAccount }) => {
                             <button
                               type="button"
                               className="btn btn-sm btn-dark button-shop"
+                              onClick={() => navigate(`/booking/${item.id}`)}
                             >
                               Book
                             </button>

@@ -1,6 +1,8 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
+import PrivateRoutes from "./PrivateRoutes";
 import "./App.css";
+import BookingCar from "./components/BookingCar";
 import EditCar from "./components/EditCar/loadable";
 import LoginPage from "./components/LoginPage/loadable";
 import Navbar from "./components/Navbar";
@@ -19,9 +21,16 @@ function App() {
       <Routes>
         <Route path="/register" element={<Registration />} />
         <Route path="/login" element={<LoginPage />} />
-        <Route path="/owner" element={<OwnerLandingPage />} />
-        <Route path="/home" element={<UserHomePage />} />
+        <Route
+          path="/owner"
+          element={<PrivateRoutes component={OwnerLandingPage} />}
+        />
+        <Route
+          path="/home"
+          element={<PrivateRoutes component={UserHomePage} />}
+        />
         <Route path="/edit/:id" element={<EditCar />} />
+        <Route path="/booking/:id" element={<BookingCar />} />
         <Route path="/request" element={<RequestBooking />} />
       </Routes>
     </Router>

@@ -7,7 +7,7 @@ import { connect } from "react-redux";
 const OwnerLandingPage = ({ userAccount, carsOption }) => {
   //   const navigate = useNavigate();
   return (
-    <div className="container">
+    <div className="container" data-testid="owner">
       <div className="row  d-flex flex-column">
         <div className="col-md-10 mx-auto my-4">
           <h2 className="text-lg-center pt-2">
@@ -72,4 +72,5 @@ const mapStateToProps = (state) => ({
   carsOption: state.carsOption,
 });
 
+export { OwnerLandingPage as OwnerLandingPageUnwrapped };
 export default connect(mapStateToProps)(OwnerLandingPage);

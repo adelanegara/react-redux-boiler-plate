@@ -3,28 +3,28 @@ import { useNavigate, useParams } from "react-router-dom";
 import { connect } from "react-redux";
 import { toast } from "react-toastify";
 
-//pass the parameter slot, addRequest, userData from redux
-const BookingCar = ({ slot, addRequest, userData }) => {
+//pass the parameter carsOption, addRequest, userData from redux
+const BookingCar = ({ carsOption, addRequest, userAccount }) => {
   const navigate = useNavigate();
   const { id } = useParams();
   const [data, setData] = useState();
   const [startBooking, setStartBooking] = useState();
   const [endBooking, setEndBooking] = useState();
-  const { username } = userData;
+  const { username } = userAccount;
 
   useEffect(() => {
-    const findSlot = slot.find((item) => {
-      return item.id === parseInt(id); ////find slot with the id that the same with the id. parseInt(id) to make the str to int
+    const findCar = carsOption.find((item) => {
+      return item.id === parseInt(id); ////find carsOption with the id that the same with the id. parseInt(id) to make the str to int
     });
-    if (findSlot) {
+    if (findCar) {
       // if found
-      setData(findSlot); //update data
+      setData(findCar); //update data
     }
-  }, [slot, id]);
+  }, [carsOption, id]);
 
   const booking = (e) => {
     e.preventDefault();
-    //generate booking id from slot. it has to be uniquely identified and not the same
+    //generate booking id from carsOption. it has to be uniquely identified and not the same
     const idBooking = `SL${new Date().toISOString()}${data.location}`;
     //update data
     const payload = {
@@ -33,12 +33,12 @@ const BookingCar = ({ slot, addRequest, userData }) => {
       status: "waiting for approval",
       location: data.location,
       username,
-      idSlot: data.id,
+      idCar: data.id,
       idBooking,
     };
 
     if (startBooking && endBooking) {
-      // user click start booking and endbooking for req slot
+      // user click start booking and endbooking for req carsOption
       addRequest(payload);
       toast.success(
         `request booking for location ${data.location} successfully` // success message
@@ -64,11 +64,11 @@ const BookingCar = ({ slot, addRequest, userData }) => {
           </div>
           <form>
             <div className="form-group">
-              <label>Location</label>
+              <label>Car</label>
               <input
                 className="form-control"
                 type="text"
-                value={data?.location}
+                value={data?.carsOption}
                 disabled
               />
             </div>
@@ -117,8 +117,8 @@ const BookingCar = ({ slot, addRequest, userData }) => {
 
 //redux selector
 const mapStateToProps = (state) => ({
-  slot: state.slot,
-  userData: state.userData,
+  carsOption: state.carsOption,
+  userAccount: state.userAccount,
 });
 
 //redux action
