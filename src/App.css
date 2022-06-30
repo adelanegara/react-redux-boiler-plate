@@ -18,7 +18,6 @@ button.button-shop {
   width: auto;
 }
 .ui.cards > .card > .content > .header {
-  height: 48px;
   font-weight: 600;
   overflow: hidden;
   margin-bottom: 5px;
@@ -110,7 +109,10 @@ p.filter-text {
 }
 
 .content-product {
-  padding: 30px;
+  padding-left: 30px;
+  padding-right: 30px;
+  padding-bottom: 15px;
+  padding-top: 10px;
 }
 
 .product-title {

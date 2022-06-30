@@ -67,7 +67,7 @@ const initialState = {
     {
       id: 6,
       name: "Mustang Orange",
-      type: "sedan",
+      type: "sSedan",
       image: "https://source.unsplash.com/umd7qYV0uvM",
       quantity: 1,
       status: "available",
@@ -79,7 +79,7 @@ const initialState = {
     {
       id: 7,
       name: "Porsche Cayman",
-      type: "sport",
+      type: "Sport",
       image: "https://source.unsplash.com/lY2cIeXbywE",
       quantity: 2,
       status: "available",
@@ -103,7 +103,7 @@ const initialState = {
     {
       id: 9,
       name: "Mustang Blue ",
-      type: "sport",
+      type: "Sport",
       image: "https://source.unsplash.com/YzCu-V0aKHA",
       quantity: 3,
       status: "available",
@@ -115,7 +115,7 @@ const initialState = {
     {
       id: 10,
       name: "Ferrari Red",
-      type: "sport",
+      type: "Sport",
       image: "https://source.unsplash.com/wDDCGk7YjIA",
       quantity: 1,
       status: "available",
@@ -147,7 +147,6 @@ export const fileReducer = (state = initialState, action) => {
         ...state,
         isLogin: false,
       };
-
     default:
       return state;
   }

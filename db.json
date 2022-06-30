@@ -1,3 +1,11 @@
 {
-  "account": []
+  "account": [
+    {
+      "email": "adela@gmail.com",
+      "password": "$2a$10$xiZ.CLUhqdAuSOigNYKjmO/4kG83Dpz1XHk5.itle5I83.IfCbn4W",
+      "name": "adela",
+      "role": "user",
+      "id": 1
+    }
+  ]
 }

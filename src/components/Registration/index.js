@@ -1,80 +1,85 @@
 import React from "react";
-import { Formik, Form, useField, ErrorMessage } from "formik";
-import { object, string, ref } from "yup";
+import { useFormik } from "formik";
+import * as yup from "yup";
+import Button from "@material-ui/core/Button";
+import TextField from "@material-ui/core/TextField";
+import bcrypt from "bcryptjs";
+import { toast } from "react-toastify";
+import axios from "axios";
 
-const RegisterValidation = object().shape({
-  name: string().required("Required"),
-  email: string()
-    .required("Valid email required")
-    .email("Valid email required"),
-  password: string().min(8, "Required").required("Required"),
-  confirmPassword: string()
-    .required("Please confirm your password")
-    .oneOf([ref("password")], "Passwords do not match"),
+const validationSchema = yup.object({
+  email: yup
+    .string("Enter your email")
+    .email("Enter a valid email")
+    .required("Email is required"),
+  password: yup
+    .string("Enter your password")
+    .min(8, "Password should be of minimum 8 characters length")
+    .required("Password is required"),
 });
 
-const Input = ({ name, label, ...props }) => {
-  const [field, meta] = useField(name);
-  return (
-    <div className="mb-4">
-      <label className="block text-gray-700 text-sm font-bold" for={field.name}>
-        {label}
-      </label>
-      <input
-        className={`${
-          meta.error && meta.touched ? "border-red-500" : ""
-        } shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline`}
-        {...field}
-        {...props}
-      />
-      <ErrorMessage
-        name={field.name}
-        component="div"
-        className="text-red-500 text-xs"
-      />
-    </div>
-  );
-};
-
 const Registration = () => {
-  const handleSubmit = (values) => {
-    console.log(values);
-  };
+  const formik = useFormik({
+    initialValues: {
+      email: "",
+      password: "",
+    },
+    validationSchema: validationSchema,
+    onSubmit: (values) => {
+      const data = {
+        ...values,
+        role: "user",
+        password: bcrypt.hashSync(values.password, 10),
+      };
+      console.log(data);
+      axios
+        .post("http://localhost:8888/account", data)
+        .then(() => {
+          window.location.replace("/login");
+          toast.success("register succesfully");
+        })
+        .catch((error) => toast.error(error.message));
+    },
+  });
+
   return (
-    <div className="h-screen flex items-center justify-center flex-col bg-gray-100">
-      <Formik
-        initialValues={{
-          name: "",
-          email: "",
-          password: "",
-          confirmPassword: "",
-        }}
-        onSubmit={handleSubmit}
-        validationSchema={RegisterValidation}
-      >
-        {() => {
-          return (
-            <Form className="bg-white w-6/12 shadow-md rounded px-8 pt-6 pb-8">
-              <Input name="name" label="Name" />
-              <Input name="email" label="Email" />
-              <Input name="password" label="Password" type="password" />
-              <Input
-                name="confirmPassword"
-                label="Confirm Password"
-                type="password"
-              />
-              <div className="flex items-center justify-between">
-                <button
-                  className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-                  type="submit"
-                >
-                  Register
-                </button>
-              </div>
-            </Form>
-          );
-        }}
-      </Formik>
+    <div className="container">
+      <div className="col-4">
+        <form onSubmit={formik.handleSubmit}>
+          <TextField
+            fullWidth
+            id="name"
+            name="name"
+            label="Name"
+            value={formik.values.name}
+            onChange={formik.handleChange}
+          />
+          <TextField
+            fullWidth
+            id="email"
+            name="email"
+            label="Email"
+            value={formik.values.email}
+            onChange={formik.handleChange}
+            error={formik.touched.email && Boolean(formik.errors.email)}
+            helperText={formik.touched.email && formik.errors.email}
+          />
+          <TextField
+            fullWidth
+            id="password"
+            name="password"
+            label="Password"
+            type="password"
+            value={formik.values.password}
+            onChange={formik.handleChange}
+            error={formik.touched.password && Boolean(formik.errors.password)}
+            helperText={formik.touched.password && formik.errors.password}
+          />
+          <Button color="primary" variant="contained" fullWidth type="submit">
+            Submit
+          </Button>
+        </form>
+      </div>
     </div>
   );
 };

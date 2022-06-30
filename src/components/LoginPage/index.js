@@ -3,7 +3,9 @@ import { useFormik } from "formik";
 import * as yup from "yup";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
-import { Login } from "@mui/icons-material";
+import bcrypt from "bcryptjs";
+import { toast } from "react-toastify";
+import axios from "axios";
 
 const validationSchema = yup.object({
   email: yup
@@ -16,21 +18,45 @@ const validationSchema = yup.object({
     .required("Password is required"),
 });
 
-const LoginPage = () => {
+const Login = () => {
+  const checkAccount = (account, values) => {
+    const findAccount = account.find((item) => {
+      return item.email === values.email;
+    });
+    if (findAccount) {
+      const checkPassword = bcrypt.compareSync(
+        values.password,
+        account.password
+      );
+      if (checkPassword) {
+        console.log(findAccount);
+        //setUserData(checkAccount);
+        // onLogin();
+        toast.success("Login Succesfully");
+      } else {
+        toast.error("invalid password");
+      }
+    } else {
+      toast.error("Account doesn't exist");
+    }
+  };
   const formik = useFormik({
     initialValues: {
-      email: "foobar@example.com",
-      password: "foobar",
+      email: "",
+      password: "",
     },
     validationSchema: validationSchema,
     onSubmit: (values) => {
-      alert(JSON.stringify(values, null, 2));
+      axios
+        .get("http://localhost:8888/account")
+        .then((response) => checkAccount(response.data, values))
+        .catch((error) => toast.error(error.message));
     },
   });
 
   return (
-    <div className="container pt-5">
-      <div className="col-4 align-items-center">
+    <div className="container">
+      <div className="col-4">
         <form onSubmit={formik.handleSubmit}>
           <TextField
             fullWidth
@@ -62,4 +88,4 @@ const LoginPage = () => {
   );
 };
 
-export default LoginPage;
+export default Login;
