@@ -3,6 +3,7 @@ import { ToastContainer } from "react-toastify";
 import "./App.css";
 import LoginPage from "./components/LoginPage/loadable";
 import Navbar from "./components/Navbar";
+import OwnerLandingPage from "./components/OwnerLandingPage/loadable";
 import Registration from "./components/Registration/loadable";
 import UserHomePage from "./components/UserHomePage/loadable";
 
@@ -16,6 +17,7 @@ function App() {
       <Routes>
         <Route path="/register" element={<Registration />} />
         <Route path="/login" element={<LoginPage />} />
+        <Route path="/owner" element={<OwnerLandingPage />} />
         <Route path="/home" element={<UserHomePage />} />
       </Routes>
     </Router>

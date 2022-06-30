@@ -1,5 +1,5 @@
 const initialState = {
-  userAccount: [],
+  userAccount: null,
   listCar: [],
   booking: [],
   isLogin: false,
