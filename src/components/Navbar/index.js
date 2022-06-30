@@ -12,9 +12,9 @@ const Navbar = () => {
           CAR BOOKING
         </a>
         <div className="logout">
-          <Link to="/cartlist" className="btn btn-outline-dark">
+          <button data-testid="button-logout" className="btn btn-outline-dark">
             Logout
-          </Link>
+          </button>
         </div>
       </nav>
     </div>
