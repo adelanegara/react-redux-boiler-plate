@@ -1,9 +1,11 @@
 const initialState = {
-  userCart: [], //for updating updated product list
-  productSortAsc: [], // for sort asc from products
+  userAccount: [],
+  listCar: [],
+  booking: [],
+  isLogin: false,
 };
 
-export const whitelist = ["userCart"];
+export const whitelist = ["userAccout", "listCar", "booking", "isLogin"];
 
 export const fileReducer = (state = initialState) => {
   return <div>fileReducer</div>;
