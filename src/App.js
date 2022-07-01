@@ -2,7 +2,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import PrivateRoutes from "./PrivateRoutes";
 import "./App.css";
-import BookingCar from "./components/BookingCar";
+import BookingCar from "./components/BookingCar/lodable";
 import EditCar from "./components/EditCar/loadable";
 import LoginPage from "./components/LoginPage/loadable";
 import Navbar from "./components/Navbar";
@@ -31,7 +31,10 @@ function App() {
         />
         <Route path="/edit/:id" element={<EditCar />} />
         <Route path="/booking/:id" element={<BookingCar />} />
-        <Route path="/request" element={<RequestBooking />} />
+        <Route
+          path="/request"
+          element={<PrivateRoutes component={RequestBooking} />}
+        />
       </Routes>
     </Router>
   );

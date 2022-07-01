@@ -51,13 +51,7 @@ const BookingCar = ({ carsOption, addRequest, userAccount }) => {
 
   return (
     <div className="container">
-      <div className="row d-flex flex-column">
-        <button
-          className="btn btn-dark ml-auto my-5"
-          onClick={() => navigate("/")}
-        >
-          Go back
-        </button>
+      <div className="row d-flex flex-column pt-5">
         <div className="col-md-6 mx-auto shadow p-5">
           <div className="text-primary text-center mb-2">
             <strong>Request Booking</strong>
@@ -103,7 +97,7 @@ const BookingCar = ({ carsOption, addRequest, userAccount }) => {
               <button
                 type="button"
                 className="btn btn-danger"
-                onClick={() => navigate("/")}
+                onClick={() => navigate("/home")}
               >
                 Cancel
               </button>

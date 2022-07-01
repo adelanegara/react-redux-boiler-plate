@@ -66,38 +66,42 @@ const Login = ({ onLogin, setUserAccount, isLogin }) => {
 
   return (
     <div className="container">
-      <div className="col-4">
-        <form onSubmit={formik.handleSubmit}>
-          <TextField
-            fullWidth
-            id="email"
-            name="email"
-            label="Email"
-            value={formik.values.email}
-            onChange={formik.handleChange}
-            error={formik.touched.email && Boolean(formik.errors.email)}
-            helperText={formik.touched.email && formik.errors.email}
-          />
-          <TextField
-            fullWidth
-            id="password"
-            name="password"
-            label="Password"
-            type="password"
-            value={formik.values.password}
-            onChange={formik.handleChange}
-            error={formik.touched.password && Boolean(formik.errors.password)}
-            helperText={formik.touched.password && formik.errors.password}
-          />
-          <div className="">
-            <Link to="/register" className="p-3">
-              Register
-            </Link>
-          </div>
-          <Button color="primary" variant="contained" fullWidth type="submit">
-            Submit
-          </Button>
-        </form>
+      <div className="col-4"></div>
+
+      <div className="card card-login">
+        <div className="card-body">
+          <form onSubmit={formik.handleSubmit}>
+            <TextField
+              fullWidth
+              id="email"
+              name="email"
+              label="Email"
+              value={formik.values.email}
+              onChange={formik.handleChange}
+              error={formik.touched.email && Boolean(formik.errors.email)}
+              helperText={formik.touched.email && formik.errors.email}
+            />
+            <TextField
+              fullWidth
+              id="password"
+              name="password"
+              label="Password"
+              type="password"
+              value={formik.values.password}
+              onChange={formik.handleChange}
+              error={formik.touched.password && Boolean(formik.errors.password)}
+              helperText={formik.touched.password && formik.errors.password}
+            />
+            <div className="">
+              <Link to="/register" className="p-3">
+                Register
+              </Link>
+            </div>
+            <Button color="primary" variant="contained" fullWidth type="submit">
+              Submit
+            </Button>
+          </form>
+        </div>
       </div>
     </div>
   );

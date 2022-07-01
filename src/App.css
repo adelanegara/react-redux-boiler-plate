@@ -145,3 +145,8 @@ p.filter-text {
 .heading-view {
   font-weight: 600;
 }
+
+.card-login {
+  align-items: center;
+  padding: 30px;
+}
