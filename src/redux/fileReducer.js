@@ -161,12 +161,22 @@ export const fileReducer = (state = initialState, action) => {
         ...state,
         carsOption: newCar,
       };
-    case "ADD_REQUEST":
+    case "ADD_REQUEST_BOOKING":
       return {
         ...state,
-        request: [action.payload, ...state.request],
+        booking: [action.payload, ...state.booking],
       };
-
+    case "UPDATE_REQUEST_BOOKING":
+      const beforeRequest = state.booking.filter((item) => {
+        return item.idCar !== action.payload.idCar;
+      });
+      console.log(action.payload.idCar);
+      console.log(beforeRequest);
+      const newRequest = [action.payload, ...beforeRequest];
+      return {
+        ...state,
+        booking: newRequest,
+      };
     default:
       return state;
   }

@@ -10,10 +10,9 @@ const OwnerLandingPage = ({ userAccount, carsOption }) => {
     <div className="container" data-testid="owner">
       <div className="row  d-flex flex-column">
         <div className="col-md-10 mx-auto my-4">
-          <h2 className="text-lg-center pt-2">
-            {/* get username and role from redux and display it */}
-            {/* Hi {userAccount?.username}, your role is {userAccount.role} */}
-          </h2>
+          {/* <h2 className="text-lg-center pt-2">
+            Hi {userAccount?.name}, your role is {userAccount.role}
+          </h2> */}
 
           <table className="table">
             <thead>

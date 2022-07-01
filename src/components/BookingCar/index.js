@@ -31,8 +31,8 @@ const BookingCar = ({ carsOption, addRequest, userAccount }) => {
       startBooking,
       endBooking,
       status: "waiting for approval",
-      location: data.location,
-      username,
+      carName: data.name,
+      username: userAccount.name,
       idCar: data.id,
       idBooking,
     };
@@ -43,7 +43,7 @@ const BookingCar = ({ carsOption, addRequest, userAccount }) => {
       toast.success(
         `request booking for location ${data.location} successfully` // success message
       );
-      navigate("/");
+      navigate("/request");
     } else {
       toast.warning("please select start and end booking date"); //error data uncompleate
     }
@@ -68,7 +68,7 @@ const BookingCar = ({ carsOption, addRequest, userAccount }) => {
               <input
                 className="form-control"
                 type="text"
-                value={data?.carsOption}
+                value={data?.name}
                 disabled
               />
             </div>
@@ -124,7 +124,7 @@ const mapStateToProps = (state) => ({
 //redux action
 const mapDispatchToProps = (dispatch) => ({
   addRequest: (payload) => {
-    dispatch({ type: "ADD_REQUEST", payload });
+    dispatch({ type: "ADD_REQUEST_BOOKING", payload });
   },
 });
 

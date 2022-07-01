@@ -8,7 +8,9 @@ import bcrypt from "bcryptjs";
 import { toast } from "react-toastify";
 import axios from "axios";
 import { connect } from "react-redux";
+import { config } from "../../server/config";
 
+//validation email and password
 const validationSchema = yup.object({
   email: yup
     .string("Enter your email")
@@ -26,6 +28,7 @@ const Login = ({ onLogin, setUserAccount, isLogin }) => {
       return item.email === values.email;
     });
     if (findAccount) {
+      // validation role
       const checkPassword = bcrypt.compareSync(
         values.password,
         findAccount.password
@@ -55,7 +58,7 @@ const Login = ({ onLogin, setUserAccount, isLogin }) => {
     validationSchema: validationSchema,
     onSubmit: (values) => {
       axios
-        .get("http://localhost:8888/account")
+        .get(config.url_account)
         .then((response) => checkAccount(response.data, values))
         .catch((error) => toast.error(error.message));
     },

@@ -19,7 +19,13 @@ const style = {
 };
 
 //pass the parameter  userData, slot, request, setRequest, editSlot from redux
-const RequestBooking = ({ userData, slot, request, setRequest, editSlot }) => {
+const RequestBooking = ({
+  booking,
+  userAccount,
+  carsOption,
+  updateRequest,
+  editCar,
+}) => {
   const [open, setOpen] = React.useState(false); //Modal close & open handler
   const handleClose = () => setOpen(false); //Modal close & open handler
   const [data, setData] = useState(); //state for data from Request.
@@ -27,8 +33,8 @@ const RequestBooking = ({ userData, slot, request, setRequest, editSlot }) => {
 
   //fetch data and shows list from request
   useEffect(() => {
-    setData(request);
-  }, [request]);
+    setData(booking);
+  }, [booking]);
 
   //Modal Approve open handler
   const handleOpen = (item) => {
@@ -38,23 +44,23 @@ const RequestBooking = ({ userData, slot, request, setRequest, editSlot }) => {
 
   //func approve, expand selectedData, change the status to approve
   const onApprove = () => {
-    const payload = {
+    const newRequest = {
       ...selectedData,
       status: "approved",
     };
 
-    const findSlot = slot.find((item) => {
-      return item.id === selectedData.idSlot; //find slot with the id that the same with the idSlot
+    const findCar = carsOption.find((item) => {
+      return item.id === selectedData.idCar; //find slot with the id that the same with the idSlot
     }); // if found
-    if (findSlot) {
-      const newSlot = {
-        ...findSlot,
+    if (findCar) {
+      const newCar = {
+        ...findCar,
         status: "unavailable",
       };
       //expanded data from findSlot & change the status to unavailable
-      setRequest(payload); //update request
-      editSlot(newSlot); //update slot
-      toast.success(`request booking ${selectedData.location} approved`); //shows success
+      updateRequest(newRequest); //update request
+      editCar(newCar); //update slot
+      toast.success(`request booking ${selectedData.name} approved`); //shows success
       handleClose(); //close popup
     }
   };
@@ -65,8 +71,8 @@ const RequestBooking = ({ userData, slot, request, setRequest, editSlot }) => {
       ...selectedData,
       status: "declined",
     };
-    setRequest(payload);
-    toast.warning(`request booking ${selectedData.location} declined`); //shows error
+    updateRequest(payload);
+    toast.warning(`request booking ${selectedData.name} declined`); //shows error
     handleClose();
   };
 
@@ -96,7 +102,7 @@ const RequestBooking = ({ userData, slot, request, setRequest, editSlot }) => {
                 <th scope="col">Car</th>
                 <th scope="col">Status</th>
                 {/* get data from user data role. Shows action if it's role is Owner */}
-                {userData?.role === "owner" && <th scope="col">Action</th>}
+                {userAccount?.role === "owner" && <th scope="col">Action</th>}
               </tr>
             </thead>
             <tbody>
@@ -106,9 +112,9 @@ const RequestBooking = ({ userData, slot, request, setRequest, editSlot }) => {
                   <th scope="row">{index + 1}</th>
                   <td>{item.startBooking}</td>
                   <td>{item.endBooking}</td>
+                  <td>{item.carName}</td>
                   <td>{item.status}</td>
-                  <td>{item.name}</td>
-                  {userData?.role === "owner" && (
+                  {userAccount?.role === "owner" && (
                     <td className="d-flex flex-row">
                       <div>
                         <button
@@ -152,12 +158,12 @@ const RequestBooking = ({ userData, slot, request, setRequest, editSlot }) => {
                       <tr>
                         <th scope="col">Id</th>
                         <th scope="col">:</th>
-                        <th scope="col">{selectedData?.id}</th>
+                        <th scope="col">{selectedData?.idCar}</th>
                       </tr>
                       <tr>
-                        <th scope="col">Location</th>
+                        <th scope="col">Car</th>
                         <th scope="col">:</th>
-                        <th scope="col">{selectedData?.location}</th>
+                        <th scope="col">{selectedData?.carName}</th>
                       </tr>
                       <tr>
                         <th scope="col">Start Booking</th>
@@ -204,17 +210,17 @@ const RequestBooking = ({ userData, slot, request, setRequest, editSlot }) => {
 
 //redux selector
 const mapStateToProps = (state) => ({
-  userData: state.userData,
-  slot: state.slot,
-  request: state.request,
+  booking: state.booking,
+  userAccount: state.userAccount,
+  carsOption: state.carsOption,
 });
 
 //redux action
 const mapDispatchToProps = (dispatch) => ({
-  setRequest: (payload) => {
-    dispatch({ type: "SET_REQUEST", payload });
+  updateRequest: (payload) => {
+    dispatch({ type: "UPDATE_REQUEST_BOOKING", payload });
   },
-  editSlot: (payload, id) => {
+  editCar: (payload) => {
     dispatch({ type: "EDIT_CARS", payload });
   },
 });

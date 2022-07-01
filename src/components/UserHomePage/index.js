@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import orderBy from "lodash/orderBy";
 import { useNavigate } from "react-router-dom";
@@ -6,7 +6,8 @@ import { useNavigate } from "react-router-dom";
 //pass the parameter carsOption
 const UserHomePage = ({ carsOption, userAccount }) => {
   const navigate = useNavigate();
-  const [filteredData, setFilteredData] = useState(carsOption);
+  const [filteredData, setFilteredData] = useState([]);
+  const [filterKey, setFilterKey] = useState([]);
 
   //handling word for search bar
   const arraySearch = (array, keyword) => {
@@ -28,6 +29,34 @@ const UserHomePage = ({ carsOption, userAccount }) => {
     const sortData = orderBy(carsOption, ["name"], [type]);
     setFilteredData(sortData);
   };
+
+  const handleSortType = async (e) => {
+    const { value, checked } = e.target;
+    if (checked) {
+      setFilterKey([...filterKey, value]);
+    } else {
+      const removeFilter = filterKey.filter((item) => {
+        return item !== value;
+      });
+      setFilterKey(removeFilter);
+    }
+  };
+
+  useEffect(() => {
+    if (filterKey.length < 1) {
+      setFilteredData(carsOption);
+    } else {
+      const filterByType = async () => {
+        const sortData = await carsOption.filter((item) => {
+          if (filterKey.includes(item.type)) {
+            return item;
+          }
+        });
+        setFilteredData(sortData);
+      };
+      filterByType();
+    }
+  }, [filterKey, carsOption]);
 
   return (
     <div>
@@ -67,8 +96,9 @@ const UserHomePage = ({ carsOption, userAccount }) => {
                     <input
                       class="form-check-input"
                       type="checkbox"
-                      value=""
+                      value="Sport"
                       id="flexCheckDefault"
+                      onClick={(e) => handleSortType(e)}
                     />
                     <label class="form-check-label" for="flexCheckDefault">
                       Sport
@@ -78,8 +108,9 @@ const UserHomePage = ({ carsOption, userAccount }) => {
                     <input
                       class="form-check-input"
                       type="checkbox"
-                      value=""
+                      value="Sedan"
                       id="flexCheckChecked"
+                      onClick={(e) => handleSortType(e)}
                     />
                     <label class="form-check-label" for="flexCheckChecked">
                       Sedan
@@ -89,8 +120,9 @@ const UserHomePage = ({ carsOption, userAccount }) => {
                     <input
                       class="form-check-input"
                       type="checkbox"
-                      value=""
+                      value="Hatchback"
                       id="flexCheckChecked"
+                      onClick={(e) => handleSortType(e)}
                     />
                     <label class="form-check-label" for="flexCheckChecked">
                       Hatchback
@@ -100,8 +132,9 @@ const UserHomePage = ({ carsOption, userAccount }) => {
                     <input
                       class="form-check-input"
                       type="checkbox"
-                      value=""
+                      value="SUV"
                       id="flexCheckChecked"
+                      onClick={(e) => handleSortType(e)}
                     />
                     <label class="form-check-label" for="flexCheckChecked">
                       SUV
@@ -111,8 +144,9 @@ const UserHomePage = ({ carsOption, userAccount }) => {
                     <input
                       class="form-check-input"
                       type="checkbox"
-                      value=""
+                      value="Mini Van"
                       id="flexCheckChecked"
+                      onClick={(e) => handleSortType(e)}
                     />
                     <label class="form-check-label" for="flexCheckChecked">
                       Mini Van

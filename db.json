@@ -13,6 +13,13 @@
       "name": "Banban",
       "role": "user",
       "id": 2
+    },
+    {
+      "email": "na@gmail.com",
+      "password": "$2a$10$179VTlyAX6kCgvXhymCtJev8vMDgejWfQOQkLfuWjLKU0YMHoa8Ti",
+      "name": "Nana",
+      "role": "user",
+      "id": 3
     }
   ]
 }
