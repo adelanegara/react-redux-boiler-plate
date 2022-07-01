@@ -7,6 +7,7 @@ import bcrypt from "bcryptjs";
 import { toast } from "react-toastify";
 import axios from "axios";
 import { config } from "../../server/config";
+import { Link } from "react-router-dom";
 
 //validation for email and password
 const validationSchema = yup.object({
@@ -46,50 +47,58 @@ const Registration = () => {
   });
 
   return (
-    <div className="container">
-      <div className="col-4">
-        <form onSubmit={formik.handleSubmit}>
-          <TextField
-            fullWidth
-            id="name"
-            name="name"
-            label="Name"
-            value={formik.values.name}
-            onChange={formik.handleChange}
-          />
-          <TextField
-            fullWidth
-            id="email"
-            name="email"
-            label="Email"
-            value={formik.values.email}
-            onChange={formik.handleChange}
-            error={formik.touched.email && Boolean(formik.errors.email)}
-            helperText={formik.touched.email && formik.errors.email}
-          />
-          <TextField
-            fullWidth
-            id="password"
-            name="password"
-            label="Password"
-            type="password"
-            value={formik.values.password}
-            onChange={formik.handleChange}
-            error={formik.touched.password && Boolean(formik.errors.password)}
-            helperText={formik.touched.password && formik.errors.password}
-          />
-          <Button
-            color="primary"
-            variant="contained"
-            fullWidth
-            type="submit"
-            data-testid="submit"
-          >
-            Submit
-          </Button>
-        </form>
+    <>
+      <div className="container d-flex justify-content-center">
+        <div className="col-4 pt-5">
+          <div className="shadow card card-login">
+            <p className="card-title filter-text">REGISTER</p>
+            <div className="card-body ">
+              <form onSubmit={formik.handleSubmit}>
+                <TextField
+                  fullWidth
+                  id="name"
+                  name="name"
+                  label="Name"
+                  value={formik.values.name}
+                  onChange={formik.handleChange}
+                />
+                <TextField
+                  fullWidth
+                  id="email"
+                  name="email"
+                  label="Email"
+                  value={formik.values.email}
+                  onChange={formik.handleChange}
+                  error={formik.touched.email && Boolean(formik.errors.email)}
+                  helperText={formik.touched.email && formik.errors.email}
+                />
+                <TextField
+                  fullWidth
+                  id="password"
+                  name="password"
+                  label="Password"
+                  type="password"
+                  value={formik.values.password}
+                  onChange={formik.handleChange}
+                  error={
+                    formik.touched.password && Boolean(formik.errors.password)
+                  }
+                  helperText={formik.touched.password && formik.errors.password}
+                />
+                <Button
+                  className=" text-light mt-5 bg-dark"
+                  variant="contained"
+                  fullWidth
+                  type="submit"
+                >
+                  Submit
+                </Button>
+              </form>
+            </div>
+          </div>
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 

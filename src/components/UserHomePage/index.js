@@ -160,6 +160,7 @@ const UserHomePage = ({ carsOption, userAccount }) => {
         <div className="col-9 ">
           <div className="row mt-5">
             {filteredData.map((item, index) => {
+              const isUnavailable = item.status === "unavailable";
               return (
                 <>
                   <div className="col-4  " key={index}>
@@ -181,6 +182,7 @@ const UserHomePage = ({ carsOption, userAccount }) => {
                           </div>
                           <div className="form-group d-flex justify-content-between">
                             <button
+                              disabled={isUnavailable}
                               type="button"
                               className="btn btn-sm btn-dark button-shop"
                               onClick={() => navigate(`/booking/${item.id}`)}

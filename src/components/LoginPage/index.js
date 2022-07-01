@@ -34,12 +34,14 @@ const Login = ({ onLogin, setUserAccount, isLogin }) => {
         findAccount.password
       );
       if (checkPassword) {
+        //if pass is correct
         setUserAccount(findAccount);
         onLogin();
         if (findAccount.role === "owner") {
+          //and account role is owner the go to ownerpage
           window.location.replace("/owner");
         } else {
-          window.location.replace("/home");
+          window.location.replace("/home"); //and account role is user the go to userpage
         }
 
         toast.success("Login Succesfully");
@@ -65,52 +67,62 @@ const Login = ({ onLogin, setUserAccount, isLogin }) => {
   });
 
   return (
-    <div className="container">
-      <div className="col-4"></div>
-
-      <div className="card card-login">
-        <div className="card-body">
-          <form onSubmit={formik.handleSubmit}>
-            <TextField
-              fullWidth
-              id="email"
-              name="email"
-              label="Email"
-              value={formik.values.email}
-              onChange={formik.handleChange}
-              error={formik.touched.email && Boolean(formik.errors.email)}
-              helperText={formik.touched.email && formik.errors.email}
-            />
-            <TextField
-              fullWidth
-              id="password"
-              name="password"
-              label="Password"
-              type="password"
-              value={formik.values.password}
-              onChange={formik.handleChange}
-              error={formik.touched.password && Boolean(formik.errors.password)}
-              helperText={formik.touched.password && formik.errors.password}
-            />
-            <div className="">
-              <Link to="/register" className="p-3">
-                Register
-              </Link>
-            </div>
-            <Button color="primary" variant="contained" fullWidth type="submit">
-              Submit
-            </Button>
-          </form>
+    <div className="container d-flex justify-content-center">
+      <div className="col-4 pt-5">
+        <div className="shadow card card-login">
+          <p className="card-title filter-text">LOGIN</p>
+          <div className="card-body ">
+            <form onSubmit={formik.handleSubmit}>
+              <TextField
+                fullWidth
+                id="email"
+                name="email"
+                label="Email"
+                value={formik.values.email}
+                onChange={formik.handleChange}
+                error={formik.touched.email && Boolean(formik.errors.email)}
+                helperText={formik.touched.email && formik.errors.email}
+              />
+              <TextField
+                fullWidth
+                id="password"
+                name="password"
+                label="Password"
+                type="password"
+                value={formik.values.password}
+                onChange={formik.handleChange}
+                error={
+                  formik.touched.password && Boolean(formik.errors.password)
+                }
+                helperText={formik.touched.password && formik.errors.password}
+              />
+              <div className="mt-3">
+                <Link to="/register">
+                  <small>Register </small>
+                </Link>
+              </div>
+              <Button
+                className=" text-light mt-5 bg-dark"
+                variant="contained"
+                fullWidth
+                type="submit"
+              >
+                Submit
+              </Button>
+            </form>
+          </div>
         </div>
       </div>
     </div>
   );
 };
 
+//selector
 const mapStateToProps = (state) => ({
   isLogin: state.isLogin,
 });
 
+//action
 const mapDispatchToProps = (dispatch) => ({
   onLogin: () => {
     dispatch({ type: "LOGIN" });

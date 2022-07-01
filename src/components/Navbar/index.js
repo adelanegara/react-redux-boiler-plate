@@ -10,9 +10,6 @@ const Navbar = ({ isLogin, onLogout, userAccount }) => {
     toast.success("logout successfully");
     window.location.replace("/login");
   };
-  if (!isLogin) {
-    return null;
-  }
   return (
     <div>
       <nav
@@ -22,31 +19,33 @@ const Navbar = ({ isLogin, onLogout, userAccount }) => {
         <a className="navbar-brand" href={isOwner ? "/owner" : "/home"}>
           CAR BOOKING
         </a>
-        <div className="collapse navbar-collapse ">
-          <ul className="navbar-nav">
-            <li className="nav-item ">
-              <a className="nav-link" href={isOwner ? "/owner" : "/home"}>
-                Home
-              </a>
-            </li>
-            <li className="nav-item">
-              <a className="nav-link" href={"/request"}>
-                Request
-              </a>
-            </li>
-          </ul>
-        </div>
-        {isLogin && <></>}
-
-        <div className="logout">
-          <button
-            data-testid="button-logout"
-            className="btn btn-outline-dark"
-            onClick={logout}
-          >
-            Logout
-          </button>
-        </div>
+        {isLogin && (
+          <>
+            <div className="collapse navbar-collapse ">
+              <ul className="navbar-nav">
+                <li className="nav-item ">
+                  <a className="nav-link" href={isOwner ? "/owner" : "/home"}>
+                    Home
+                  </a>
+                </li>
+                <li className="nav-item">
+                  <a className="nav-link" href={"/request"}>
+                    Request
+                  </a>
+                </li>
+              </ul>
+            </div>
+            <div className="logout">
+              <button
+                data-testid="button-logout"
+                className="btn btn-outline-dark"
+                onClick={logout}
+              >
+                Logout
+              </button>
+            </div>
+          </>
+        )}
       </nav>
     </div>
   );
